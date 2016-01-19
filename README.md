@@ -1,19 +1,19 @@
 # Splunk_TA_bro-extras
-Extra stuff for Bro: 
-* CIM compliance for Certificate Data Model
-* Scheduled search that adds correlated events to a summary index
-* DNS log handling (TODO...)
+Features listed below:
 
-
-## The following scheduled search is run every 5 minutes
-index=bro (sourcetype=bro_files OR sourcetype=bro_ssl OR sourcetype=bro_x509) correlation_id!="-" correlation_id!="(empty)" | stats first(_time) AS _time latest(duration) AS duration latest(response_time) AS response_time latest(src) AS src latest(src_port) AS src_port latest(dest) AS dest latest(dest_port) AS dest_port values(sourcetype) AS sourcetypes latest(transport) AS transport latest(ssl_end_time) AS ssl_end_time latest(ssl_hash) AS ssl_hash latest(ssl_cipher_name) AS ssl_cipher_name latest(ssl_issuer) AS ssl_issuer latest(ssl_issuer_common_name) AS ssl_issuer_common_name latest(ssl_issuer_email) AS ssl_issuer_email latest(ssl_issuer_locality) AS ssl_issuer_locality latest(ssl_issuer_organization) AS ssl_issuer_organization latest(ssl_issuer_state) AS ssl_issuer_state latest(ssl_issuer_street) AS ssl_issuer_street latest(ssl_issuer_unit) AS ssl_issuer_unit latest(ssl_name) AS ssl_name latest(ssl_policies) AS ssl_policies latest(ssl_publickey) AS ssl_publickey latest(ssl_publickey_algorithm) AS ssl_publickey_algorithm latest(ssl_serial) AS ssl_serial latest(ssl_session_id) AS ssl_session_id latest(ssl_signature_algorithm) AS ssl_signature_algorithm latest(ssl_start_time) AS ssl_start_time latest(ssl_subject) AS ssl_subject latest(ssl_subject_common_name) AS ssl_subject_common_name latest(ssl_subject_email) AS ssl_subject_email latest(ssl_subject_locality) AS ssl_subject_locality latest(ssl_subject_state) AS ssl_subject_state latest(ssl_subject_street) AS ssl_subject_street latest(ssl_subject_unit) AS ssl_subject_unit latest(ssl_version) AS ssl_version latest(version) AS version BY correlation_id | where sourcetypes = "bro_x509" | fields - correlation_id sourcetypes | collect
-
-## index=summary search_name="Summary - Bro IDS SSL" ##
-Will show correlated data from all three sourcetypes, properly tagged.
- 
+## CIM compliance for Certificate Data Model
+This makes SSL data from Bro work the same way as SSL data collected by Stream
 http://docs.splunk.com/Documentation/CIM/4.3.1/User/Certificates
+It contains a scheduled search that adds correlated events to a summary index (index=summary search_name="Summary - Bro IDS SSL")
 
-## Examples from Stream App ##
+## CIM Compliance for Network Resolution (DNS) Data Model
+This makes DNS data from Bro work the same way as DNS data collected by Stream or DNS server logs
+http://docs.splunk.com/Documentation/CIM/latest/User/NetworkResolutionDNS
+
+TODO in props.conf and transforms.conf
+
+
+## Examples from Stream App (REMOVE THIS) ##
     bytes_in:  1638 
     bytes_out:  2925 
     count:  1 
