@@ -1,6 +1,8 @@
 # TA-bro-extras
 
-This Add-on requires the official Splunk Add-on for Bro IDS. TA-bro-extras containts the following extra capabilities:
+This Add-on requires the official Splunk Add-on for Bro IDS. 
+
+TA-bro-extras containts the following extra capabilities:
 
 ## Features listed below:
 
